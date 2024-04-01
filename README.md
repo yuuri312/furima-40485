@@ -41,6 +41,7 @@ belongs_to :user
 ## items
 |Column|Type|Options|
 |------|----|-------|
+|item_id|string|null: false, unique: true, index: true|
 |image_url|string|null: false|
 |name|string|null: false|
 |description|text|null: false|
@@ -56,4 +57,19 @@ belongs_to :user
  belongs_to :seller, class_name: "User"
  belongs_to :buyer, class_name: "User"
  
+## purchase_histories
+|Column|Type|Options|
+|------|----|-------|
+|purchase_history_id|string|null: false, unique: true, index: true|
+|user_email|reference|foreign_key: true, index: true|
+|item_id|reference|foreign_key: true, index: true|
+|address_id|reference|foreign_key: true, index: true|
+### アソシエーション
+ belongs_to :buyer, class_name: "User"
+ belongs_to :item, class_name: "Item"
+ belongs_to :shipping_address, class_name: "Address"
+ 
+
+
+
 
