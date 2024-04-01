@@ -17,59 +17,56 @@ PASSWORD: 2222
 |kana_first_name|string|null: false|
 |birthday|date|null: false|
 ### アソシエーション
- has_many :buyed_items, class_name: "Item"
- has_many :selled_items, class_name: "Item"
- has_one :address
- has_one :card
+ has_many :items, class_name: "Item"
+
+
 
 
 ## addressesテーブル
 |Column|Type|Options|
 |------|----|-------|
-|address_id|string|null: false, unique: true, index: true|
 |postal_code|string|null: false|
 |prefecture|string|null: false|
 |city|string|null: false|
 |block|string|null: false|
 |building|string||
 |tel|string||
-|user_email|references|foreign_key: true, index: true|
+|purchase_history|references|foreign_key: true, index: true|
 ### アソシエーション
-belongs_to :user
+belongs_to :purchase_history, class_name: "PurchaseHistory"
 
 
 ## items
 |Column|Type|Options|
 |------|----|-------|
-|item_id|string|null: false, unique: true, index: true|
-|image_url|string|null: false|
 |name|string|null: false|
 |description|text|null: false|
-|category|string|null: false|
 |condition|string|null: false|
 |paid_shipping_cost|string|null: false|
 |shipper_prefecture|string|null: false|
-|due_date|integer|null: false|
+|due_date|string|null: false|
 |price|integer|null: false|
-|seller_id|reference|foreign_key: true, index: true|
-|buyer_id|reference|foreign_key: true, index: true|
+|user|references|null: false, foreign_key: true|
 ### アソシエーション
- belongs_to :seller, class_name: "User"
- belongs_to :buyer, class_name: "User"
+ belongs_to :user, class_name: "User"
+
  
 ## purchase_histories
 |Column|Type|Options|
 |------|----|-------|
-|purchase_history_id|string|null: false, unique: true, index: true|
-|user_email|reference|foreign_key: true, index: true|
-|item_id|reference|foreign_key: true, index: true|
-|address_id|reference|foreign_key: true, index: true|
+|user|reference|foreign_key: true, index: true|
+|item|reference|foreign_key: true, index: true|
+|address|reference|foreign_key: true, index: true|
 ### アソシエーション
- belongs_to :buyer, class_name: "User"
+ belongs_to :user, class_name: "User"
  belongs_to :item, class_name: "Item"
- belongs_to :shipping_address, class_name: "Address"
+ belongs_to :address, class_name: "Address"
  
-
-
+## categoriesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null: false|
+### アソシエーション
+has_many :items
 
 
