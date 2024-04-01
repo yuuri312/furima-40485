@@ -8,17 +8,14 @@ PASSWORD: 2222
 ## usersテーブル
 |Column|Type|Options|
 |------|----|-------|
-|user_id|string|null: false, unique: true, index: true|
+|email|string|null: false, unique: true, index: true|
 |nickname|string|null: false|
-|email|string|null: false|
-|password|string|null: false|
+|encrypted_password|string|null: false|
 |last_name|string|null: false|
 |first_name|string|null: false|
 |kana_last_name|string|null: false|
 |kana_first_name|string|null: false|
-|birthday|integer|null: false|
-
-
+|birthday|date|null: false|
 ### アソシエーション
  has_many :buyed_items, class_name: "Item"
  has_many :selled_items, class_name: "Item"
@@ -36,24 +33,9 @@ PASSWORD: 2222
 |block|string|null: false|
 |building|string||
 |tel|string||
-|user_id|references|foreign_key: true, index: true|
-
-
+|user_email|references|foreign_key: true, index: true|
 ### アソシエーション
 belongs_to :user
-
-
-## cardsテーブル
-|Column|Type|Options|
-|------|----|-------|
-|card_id|string|null: false, unique: true, index: true|
-|card_number|string|null: false|
-|expiration_date|date|null: false|
-|security_code|string|null: false|
-|user_id|references|foreign_key: true, index: true|
-### アソシエーション
- belongs_to :user
-
 
 
 ## items
@@ -70,7 +52,6 @@ belongs_to :user
 |price|integer|null: false|
 |seller_id|reference|foreign_key: true, index: true|
 |buyer_id|reference|foreign_key: true, index: true|
-
 ### アソシエーション
  belongs_to :seller, class_name: "User"
  belongs_to :buyer, class_name: "User"
