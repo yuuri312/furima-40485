@@ -18,6 +18,7 @@ PASSWORD: 2222
 |birthday|date|null: false|
 ### アソシエーション
  has_many :items, class_name: "Item"
+ belongs_to :purchase_history, class_name: "PurchaseHistory"
 
 
 
@@ -26,11 +27,11 @@ PASSWORD: 2222
 |Column|Type|Options|
 |------|----|-------|
 |postal_code|string|null: false|
-|prefecture|string|null: false|
+|prefecture_id|string|null: false|
 |city|string|null: false|
 |block|string|null: false|
 |building|string||
-|tel|string||
+|tel|string|null: false|
 |purchase_history|references|foreign_key: true, index: true|
 ### アソシエーション
 belongs_to :purchase_history, class_name: "PurchaseHistory"
@@ -41,14 +42,15 @@ belongs_to :purchase_history, class_name: "PurchaseHistory"
 |------|----|-------|
 |name|string|null: false|
 |description|text|null: false|
-|condition|string|null: false|
-|paid_shipping_cost|string|null: false|
-|shipper_prefecture|string|null: false|
-|due_date|string|null: false|
+|condition_id|integer|null: false|
+|paid_shipping_cost_id|integer|null: false|
+|prefecture_id|integer|null: false|
+|due_date_id|integer|null: false|
 |price|integer|null: false|
 |user|references|null: false, foreign_key: true|
 ### アソシエーション
  belongs_to :user, class_name: "User"
+ belongs_to :purchase_history, class_name: "PurchaseHistory"
 
  
 ## purchase_histories
@@ -56,17 +58,13 @@ belongs_to :purchase_history, class_name: "PurchaseHistory"
 |------|----|-------|
 |user|reference|foreign_key: true, index: true|
 |item|reference|foreign_key: true, index: true|
-|address|reference|foreign_key: true, index: true|
 ### アソシエーション
- belongs_to :user, class_name: "User"
- belongs_to :item, class_name: "Item"
- belongs_to :address, class_name: "Address"
+ has_one :user, class_name: "User"
+ has_one :item, class_name: "Item"
+ has_one :address, class_name: "Address"
  
-## categoriesテーブル
-|Column|Type|Options|
-|------|----|-------|
-|name|string|null: false|
-### アソシエーション
-has_many :items
 
+
+
+ 
 
