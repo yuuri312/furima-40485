@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   belongs_to :paid_shipping_cost
   belongs_to :prefecture
   belongs_to :due_date
+  has_one_attached :image
 
 
 end
