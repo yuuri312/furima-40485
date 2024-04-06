@@ -92,12 +92,12 @@ RSpec.describe User, type: :model do
         another_user.valid?
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
-      it "last_name_fullが全角（漢字・ひらがな・カタカナ）以外では登録できない" do
+      it "last_nameが全角（漢字・ひらがな・カタカナ）以外では登録できない" do
         @user.last_name = 'yamada'
         @user.valid?
         expect(@user.errors.full_messages).to include("Last name 全角文字を使用してください")
       end
-      it "first_name_fullが全角（漢字・ひらがな・カタカナ）以外では登録できない" do
+      it "first_nameが全角（漢字・ひらがな・カタカナ）以外では登録できない" do
         @user.first_name = 'tarou'
         @user.valid?
         expect(@user.errors.full_messages).to include("First name 全角文字を使用してください")
@@ -107,7 +107,7 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Kana last name 全角文字を使用してください")
       end
-      it "kana_first_name_halfが全角（カタカナ）以外では登録できない" do
+      it "kana_first_nameが全角（カタカナ）以外では登録できない" do
         @user.kana_first_name = '太郎'
         @user.valid?
         expect(@user.errors.full_messages).to include("Kana first name 全角文字を使用してください")
