@@ -1,9 +1,9 @@
  class ItemsController < ApplicationController
-    before_action :set_item, only: [:show, :edit, :update, :destroy]
+    # before_action :set_item, only: [:show, :edit, :update, :destroy]
     before_action :move_to_login, except: [:index]
 
     def index
-      @items = Item.includes(:item_images)
+      # @items = Item.includes(:item_images)
     end
     
     def new
@@ -25,9 +25,9 @@
       params.require(:item).permit(:name, :description, :category_id, :condition_id, :paid_shipping_cost_id, :prefecture_id, :due_date_id, :price, :image).merge(user_id: current_user.id)
     end
   
-    def set_item
-      @item = Item.find(params[:id])
-    end
+    # def set_item
+    #   @item = Item.find(params[:id])
+    # end
 
     def move_to_login
       unless user_signed_in?
