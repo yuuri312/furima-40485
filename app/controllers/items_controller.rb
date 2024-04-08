@@ -1,6 +1,6 @@
  class ItemsController < ApplicationController
     # before_action :set_item, only: [:show, :edit, :update, :destroy]
-    before_action :move_to_login, except: [:index]
+    before_action :move_to_login, except: [:index, :show]
 
     def index
       @items = Item.all.order(created_at: :desc)
@@ -17,6 +17,10 @@
       else
         render :new, status: :unprocessable_entity
       end
+    end
+
+    def show
+      @item = Item.find(params[:id])
     end
   
     private
