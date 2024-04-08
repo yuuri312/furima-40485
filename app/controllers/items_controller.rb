@@ -3,7 +3,7 @@
     before_action :move_to_login, except: [:index]
 
     def index
-      # @items = Item.includes(:item_images)
+      @items = Item.all.order(created_at: :desc)
     end
     
     def new
