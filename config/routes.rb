@@ -5,3 +5,5 @@ Rails.application.routes.draw do
     resources :purchase_histories
   end
 end
+
+

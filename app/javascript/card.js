@@ -1,23 +1,18 @@
 const pay = () => {
-  // const publicKey = gon.public_key
-  // console.log(publicKey)
-  const publicKey = 'pk_test_83f77347a5b2f402027b72ff'
+  const publicKey = gon.public_key
   const payjp = Payjp(publicKey)
-   
-  const submit = document.getElementById("button");
-  submit.addEventListener("click", (e) => {
-    e.preventDefault();
 
-    const formResult = document.getElementById("charge-form");
-    const formData = new FormData(formResult);
+  const elements = payjp.elements();
+  const numberElement = elements.create('cardNumber');
+  const expiryElement = elements.create('cardExpiry');
+  const cvcElement = elements.create('cardCvc');
 
-    const card = {
-      number: formData.get("purchase_address[card_number]"),
-      cvc: formData.get("purchase_address[cvc]"),
-      exp_month: formData.get("purchase_address[exp_month]"),
-      exp_year: `20${formData.get("purchase_address[exp_year]")}`,
-    };
+  numberElement.mount('#number-form');
+  expiryElement.mount('#expiry-form');
+  cvcElement.mount('#cvc-form');
 
+  const form = document.getElementById('charge-form')
+  form.addEventListener("submit", (e) => {
     payjp.createToken(numberElement).then(function (response) {
       if (response.error) {
       } else {
@@ -26,15 +21,10 @@ const pay = () => {
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
-
-      document.getElementById("card-number").removeAttribute("name");
-      document.getElementById("card-cvc").removeAttribute("name");
-      document.getElementById("card-exp-month").removeAttribute("name");
-      document.getElementById("card-exp-year").removeAttribute("name");
-
-      document.getElementById("charge-form").submit();
     });
   });
 };
 
-window.addEventListener("load", pay);
+window.addEventListener("turbo:load", pay);
+window.addEventListener('turbo:frame-load', pay);
+window.addEventListener("turbo:render", pay);

@@ -8,32 +8,39 @@ class PurchaseHistoriesController < ApplicationController
     @purchase_history_address = PurchaseHistoryAddress.new
   end
 
+  def create 
+    @purchase_history_address = PurchaseHistoryAddress.new(purchase_params)
+    if @purchase_history_address.valid?
+      pay_item
+      @purchase_history_address.save
+      redirect_to root_path
+    else
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      render :index, status: :unprocessable_entity
+    end
+  end
+  
+
+  def new
+    @purchase_history_address = PurchaseHistoryAddress.new
+  end
+
+
+
+
   # def create
   #   @purchase_history_address = PurchaseHistoryAddress.new(purchase_params)
   #   if @purchase_history_address.valid?
   #     pay_item
-  #     @purchase_history_address.save
-  #     redirect_to root_path
+  #     if @purchase_history_address.save
+  #       redirect_to root_path
+  #     else 
+  #       render :index, status: :unprocessable_entity
+  #     end
   #   else
   #     render :index
   #   end
   # end
-
-
-
-  def create
-    @purchase_history_address = PurchaseHistoryAddress.new(purchase_params)
-    if @purchase_history_address.valid?
-      pay_item
-      if @purchase_history_address.save
-        redirect_to root_path
-      else 
-        render :new, status: :unprocessable_entity
-      end
-    else
-      render :index
-    end
-  end
 
   
 
