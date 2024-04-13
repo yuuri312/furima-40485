@@ -15,16 +15,20 @@ const pay = () => {
   form.addEventListener("submit", (e) => {
     payjp.createToken(numberElement).then(function (response) {
       if (response.error) {
+        console.log('エラー発生')
       } else {
         const token = response.id;
+        console.log(token)
         const renderDom = document.getElementById("charge-form");
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
+      document.getElementById("charge-form").submit();
+
     });
+    e.preventDefault();
   });
 };
 
 window.addEventListener("turbo:load", pay);
-window.addEventListener('turbo:frame-load', pay);
 window.addEventListener("turbo:render", pay);
